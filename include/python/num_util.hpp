@@ -72,7 +72,7 @@ DEALINGS IN THE SOFTWARE.
 // Eliminate references to numeric and numarray initiation, add numpy initiation
 
 
-#include <boost/python/numeric.hpp>
+#include <boost/python/numpy.hpp>
 #include <boost/python/extract.hpp>
 #include <numpy/arrayobject.h>
 //#include <iostream>
@@ -84,12 +84,12 @@ DEALINGS IN THE SOFTWARE.
 
 namespace cvisual { namespace python {
 
-  using boost::python::numeric::array;
+  using boost::python::numpy::ndarray;
 
-  class double_array : public array {
+  class double_array : public ndarray {
   public:
-  	explicit double_array( const boost::python::handle<>& h ) : array(h) {}
-  	//double_array( const array& a ) : array(a) {}  //< TODO: callers are doing unnecessary copying; somewhat type unsafe
+  	explicit double_array( const boost::python::handle<>& h ) : ndarray(boost::python::numpy::array(boost::python::object(h))) {}
+  	//double_array( const ndarray& a ) : ndarray(a) {}  //< TODO: callers are doing unnecessary copying; somewhat type unsafe
   };
 
   /**
@@ -97,9 +97,9 @@ namespace cvisual { namespace python {
    * The elements of the array are initialized to zero.
    *@param n an integer representing the length of the array.
    *@param t elements' numpy type. Default is double.
-   *@return a numeric array of size n with elements initialized to zero.
+   *@return a numpy array of size n with elements initialized to zero.
    */
-  array makeNum(npy_intp n, NPY_TYPES t =NPY_DOUBLE);
+  ndarray makeNum(npy_intp n, NPY_TYPES t =NPY_DOUBLE);
 
 
  /**
@@ -107,9 +107,9 @@ namespace cvisual { namespace python {
    *type t. The elements of the array are initialized to zero.
    *@param dimens a vector of interger specifies the dimensions of the array.
    *@param t elements' numpy type. Default is double.
-   *@return a numeric array of shape dimens with elements initialized to zero.
+   *@return a numpy array of shape dimens with elements initialized to zero.
    */
-  array makeNum(const std::vector<npy_intp>& dimens, NPY_TYPES t =NPY_DOUBLE);
+  ndarray makeNum(const std::vector<npy_intp>& dimens, NPY_TYPES t =NPY_DOUBLE);
 
   /**
    *Function template returns PyArray_Type for C++ type
@@ -120,82 +120,82 @@ namespace cvisual { namespace python {
 
   /**
    *A free function that retrieves the numpy type of a numpy array.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@return the numpy type of the array's elements
    */
-  NPY_TYPES type(array arr);
+  NPY_TYPES type(ndarray arr);
 
   /**
    *Throws an exception if the actual array type is not equal to the expected
    *type.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@param expected_type an expected numpy type.
    *@return -----
    */
-  void check_type(array arr,
+  void check_type(ndarray arr,
 		  NPY_TYPES expected_type);
 
   /**
    *Returns the dimensions in a vector.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@return a vector with integer values that indicates the shape of the array.
   */
-  std::vector<npy_intp> shape(array arr);
+  std::vector<npy_intp> shape(ndarray arr);
 
   /**
    *Throws an exception if the actual dimensions of the array are not equal to
    *the expected dimensions.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@param expected_dims an integer vector of expected dimension.
    *@return -----
    */
-  void check_shape(array arr,
+  void check_shape(ndarray arr,
 		   std::vector<npy_intp> expected_dims);
 
   /**
    *Returns true if the array is contiguous.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@return true if the array is contiguous, false otherwise.
   */
-  bool iscontiguous(array arr);
+  bool iscontiguous(ndarray arr);
 
   /**
    *Throws an exception if the array is not contiguous.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@return -----
   */
-  void check_contiguous(array arr);
+  void check_contiguous(ndarray arr);
 
 /**
    *Returns a pointer to the data in the array.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@return a char pointer pointing at the first element of the array.
-  void* data(array arr);
+  void* data(ndarray arr);
   */
 
   /**
    *Returns a pointer to the data in the array.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@return a char pointer pointing at the first element of the array.
    */
   // USED
-  char* data(const array& arr);
+  char* data(const ndarray& arr);
 
    /**
     *Copies data into the array.
-    *@param arr a Boost/Python numeric array.
+    *@param arr a Boost/Python numpy array.
     *@param new_data a char pointer referencing the new data.
     *@return -----
     */
-   void copy_data(boost::python::numeric::array arr, char* new_data);
+   void copy_data(boost::python::numpy::ndarray arr, char* new_data);
 
   /**
    *Returns a clone of this array with a new type.
-   *@param arr a Boost/Python numeric array.
+   *@param arr a Boost/Python numpy array.
    *@param t NPY_TYPES of the output array.
    *@return a replicate of 'arr' with type set to 't'.
    */
-  array astype(array arr,
+  ndarray astype(ndarray arr,
 				       NPY_TYPES t);
 
 

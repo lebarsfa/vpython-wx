@@ -200,7 +200,7 @@ else
   ifeq ($(PYTHON_PLATFORM),darwin)
     # Special rules for OSX
     CVISUAL_LIBS += $(filter-out $(_FILTER_OUT), $(GTK_LIBS) \
-       $(GTHREAD_LIBS) /sw/lib/libboost_python-mt.a -lboost_thread-mt -lboost_signals)
+       $(GTHREAD_LIBS) /sw/lib/libboost_python-mt.a -lboost_numpy -lboost_thread-mt -lboost_signals)
     CXX_RULE = $(DEFAULT_CXX_RULE)
     LINK_RULE = $(OSX_SORULE)
     PLATFORM_TARGET = cvisualmodule.so
@@ -209,7 +209,7 @@ else
  else
     # Libtoolish rules.  These should apply to all POSIX-like systems.
     CVISUAL_LIBS += $(filter-out $(_FILTER_OUT), $(GTK_LIBS) \
-       $(GTHREAD_LIBS) -lboost_python -lboost_thread -lboost_signals)
+       $(GTHREAD_LIBS) -lboost_python -lboost_numpy -lboost_thread -lboost_signals)
 #       $(GTHREAD_LIBS) -lboost_python-gcc44-mt -lboost_thread-gcc44-mt -lboost_signals-gcc44-mt)
 #    $(GTHREAD_LIBS) \
 #    -l$(top_srcdir)/dependencies/boost_files/linux_libs/boost_python \

@@ -43,14 +43,14 @@ extrusion::extrusion()
 	normals2D.insert(normals2D.begin(), 0.0);
 }
 
-namespace numpy = boost::python::numeric;
+namespace numpy = boost::python::numpy;
 
 //    Serious issue with 32bit vs 64bit machines, apparently,
 //    with respect to extract/converting from an array (e.g. double <- int),
 //    so for the time being, make sure that in primitives.py one builds
 //    the contour arrays as double and int.
 
-void check_array( const array& n_array )
+void check_array( const numpy::ndarray& n_array )
 {
 	std::vector<npy_intp> dims = shape( n_array );
 	if (!(dims.size() == 2 && dims[1] == 2)) {
@@ -59,7 +59,7 @@ void check_array( const array& n_array )
 }
 
 template <typename T>
-void build_contour(const numpy::array& _cont, std::vector<T>& cont)
+void build_contour(const numpy::ndarray& _cont, std::vector<T>& cont)
 {
 	check_array(_cont);
 	std::vector<npy_intp> dims = shape(_cont); 
@@ -72,8 +72,8 @@ void build_contour(const numpy::array& _cont, std::vector<T>& cont)
 }
 
 void
-extrusion::set_contours( const numpy::array& _contours,  const numpy::array& _pcontours,
-		const numpy::array& _strips,  const numpy::array& _pstrips  )
+extrusion::set_contours( const numpy::ndarray& _contours,  const numpy::ndarray& _pcontours,
+		const numpy::ndarray& _strips,  const numpy::ndarray& _pstrips  )
 {
 	// Polygon does not guarantee the winding order of the list of points,
 	// so in primitives.py we force the winding order to be clockwise if
@@ -735,7 +735,7 @@ boost::python::object extrusion::_faces_render() {
 	size_t d = faces_pos.size(); // number of pos vectors (3*d doubles)
 	dimens[0] = 3*d; // make array of vectors 3d long (pos, normals, colors)
 	dimens[1] = 3;
-	array faces_data = makeNum(dimens);
+	numpy::ndarray faces_data = makeNum(dimens);
 	memmove( data(faces_data), &faces_pos[0], sizeof(vector)*d );
 	memmove( data(faces_data)+sizeof(vector)*d, &faces_normals[0], sizeof(vector)*d );
 	memmove( data(faces_data)+sizeof(vector)*2*d, &faces_colors[0], sizeof(vector)*d );

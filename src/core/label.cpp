@@ -14,7 +14,7 @@
 using boost::scoped_array;
 
 namespace cvisual {
-using namespace boost::python::numeric;
+using namespace boost::python::numpy;
 
 using boost::python::import;
 using boost::python::object;
@@ -362,11 +362,11 @@ label::get_bitmap()
 }
 
 void
-label::set_bitmap(array bm, int width, int height, int back0, int back1, int back2) {
+label::set_bitmap(ndarray bm, int width, int height, int back0, int back1, int back2) {
 	// set_bitmap is called from primitives.py/get_bitmap
 	// bm.data is RGB unsigned bytes
 	// http://mail.python.org/pipermail/cplusplus-sig/2003-March/003202.html :
-	unsigned char* data = (unsigned char*)((PyArrayObject*) bm.ptr())->data;
+	unsigned char* data = (unsigned char*)bm.get_data();
 	bitmap_width = width;
 	bitmap_height = height;
 	text_changed = true;

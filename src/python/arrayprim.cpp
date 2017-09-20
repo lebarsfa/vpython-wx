@@ -9,12 +9,12 @@ using boost::python::tuple;
 
 template <class CTYPE>
 arrayprim_array<CTYPE>::arrayprim_array()
- : array(NULL), length(0), allocated(256)
+ : ndarray(boost::python::numpy::array(object(NULL))), length(0), allocated(256)
 {
 	std::vector<npy_intp> dims(2);
 	dims[0] = allocated;
 	dims[1] = 3;
-	array::operator=( makeNum( dims, (NPY_TYPES)type_npy_traits<CTYPE>::npy_type ) );
+	ndarray::operator=( makeNum( dims, (NPY_TYPES)type_npy_traits<CTYPE>::npy_type ) );
 }
 
 template <class CTYPE>
@@ -38,9 +38,9 @@ void arrayprim_array<CTYPE>::set_length( size_t new_len ) {
 		dims[0] = 2*(new_len-1);
 		dims[1] = 3;
 
-		array n_arr = makeNum( dims, (NPY_TYPES)type_npy_traits<CTYPE>::npy_type );
+		ndarray n_arr = makeNum( dims, (NPY_TYPES)type_npy_traits<CTYPE>::npy_type );
 		std::memcpy( cvisual::python::data(n_arr), data(0), sizeof(CTYPE) * old_len * dims[1] );
-		array::operator=( n_arr ); // doesn't actually copy
+		ndarray::operator=( n_arr ); // doesn't actually copy
 
 		allocated = dims[0];
 	}

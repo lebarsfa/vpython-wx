@@ -59,7 +59,7 @@ CVISUAL_CXXFLAGS = -g -O2 -ftemplate-depth-120 -fPIC -DPIC
 #CVISUAL_LIBS += -lstdc++
 
 CVISUAL_LIBS += $(GTK_LIBS) $(GTHREAD_LIBS) \
-       -lpython$(PYTHON_VERSION) -lboost_python-mt -lboost_signals-mt -lboost_thread-mt -lstdc++
+       -lpython$(PYTHON_VERSION) -lboost_python-mt -lboost_numpy -lboost_signals-mt -lboost_thread-mt -lstdc++
 
 CVISUAL_OBJS = arrayprim.o arrow.o axial.o box.o cone.o cylinder.o display_kernel.o ellipsoid.o \
 	frame.o label.o material.o mouse_manager.o mouseobject.o primitive.o pyramid.o \

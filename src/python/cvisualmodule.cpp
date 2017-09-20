@@ -11,7 +11,7 @@
 
 #include <boost/python/exception_translator.hpp>
 #include <boost/python/module.hpp>
-#include <boost/python/numeric.hpp>
+#include <boost/python/numpy.hpp>
 #include <boost/python/def.hpp>
 
 #define PY_ARRAY_UNIQUE_SYMBOL visual_PyArrayHandle
@@ -136,7 +136,6 @@ BOOST_PYTHON_MODULE( cvisual)
 	VPYTHON_NOTE( "Importing cvisual from vpython-core2.");
 
 	using namespace boost::python;
-	numeric::array::set_module_and_type( "numpy", "ndarray");
 
 #if __GNUG__
 #if __GNUC__ == 3

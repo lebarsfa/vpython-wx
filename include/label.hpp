@@ -16,7 +16,7 @@
 #include <boost/python.hpp>
 
 namespace cvisual {
-using namespace boost::python::numeric;
+using namespace boost::python::numpy;
 
 class label : public renderable
 {
@@ -89,7 +89,7 @@ class label : public renderable
 	boost::python::object get_primitive_object();
 
 	//void set_bitmap(char* data, int width, int height);
-	void set_bitmap(array bm, int width, int height, int back0, int back1, int back2);
+	void set_bitmap(ndarray bm, int width, int height, int back0, int back1, int back2);
 
  protected:
 	GLuint handle;

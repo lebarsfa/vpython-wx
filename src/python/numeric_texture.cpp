@@ -41,7 +41,7 @@ boost::crc_32_type engine;
 } // !namespace (anonymous)
 
 numeric_texture::numeric_texture()
-	: texdata(0),
+	: texdata(boost::python::numpy::array(boost::python::object(0))),
 	data_width(0), data_height(0), data_depth(0), data_channels(0), data_type(NPY_NOTYPE),
 		data_textype( 0), data_mipmapped(true), data_antialias(false), data_clamp(false),
 	tex_width(0), tex_height(0), tex_depth(0), tex_channels(0), tex_type(NPY_NOTYPE),
@@ -252,7 +252,7 @@ numeric_texture::gl_transform(void)
 }
 
 void
-numeric_texture::set_data( boost::python::numeric::array data)
+numeric_texture::set_data( boost::python::numpy::ndarray data)
 {
 	namespace py = boost::python;
 
@@ -274,7 +274,7 @@ numeric_texture::set_data( boost::python::numeric::array data)
 	} else {
 		// Make a copy, so the user can't mutate the texture in place (it's just too expensive
 		// to check for changes; we make the user assign to texture.data again)
-		data = py::extract<py::numeric::array>( data.copy() );
+		data = py::extract<py::numpy::ndarray>( data.copy() );
 	}
 
 	int channels = dims.size() >= 3 ? dims.back() : 1;
@@ -298,12 +298,12 @@ numeric_texture::set_data( boost::python::numeric::array data)
 	data_type = t;
 }
 
-boost::python::numeric::array
+boost::python::numpy::ndarray
 numeric_texture::get_data()
 {
 	// Return a copy, so the user can't mutate the texture in place (it's just too expensive
 	// to check for changes; we make the user assign to texture.data again)
-	return boost::python::extract< boost::python::numeric::array >( texdata.copy() );
+	return boost::python::extract< boost::python::numpy::ndarray >( texdata.copy() );
 }
 
 void
