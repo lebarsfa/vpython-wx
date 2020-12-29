@@ -73,6 +73,7 @@ init_numpy()
 {
 	Py_Initialize();
 	boost::python::numpy::initialize();
+	import_array();
 }
 
 size_t

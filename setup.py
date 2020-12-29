@@ -73,7 +73,7 @@ elif os_host in ('linux'):
     GTK_VIS_LIBS = get_libs()
     # GTK_VIS_LIBS.append('boost_python-mt-py' + versionString)
     GTK_VIS_LIBS.append('boost_python-py' + versionString)
-    GTK_VIS_LIBS.append('boost_numpy-' + versionString)
+    GTK_VIS_LIBS.append('boost_numpy-py' + versionString)
     GTK_VIS_LIBS.append('boost_signals')
 
     GTK_INCDIRS = get_includes()
@@ -88,6 +88,7 @@ elif os_host in ('freebsd'):
     GTK_VIS_LIBS = get_libs()
     # freebsd ports install libboost_python for py27
     GTK_VIS_LIBS.append('boost_python')
+    GTK_VIS_LIBS.append('boost_numpy')
     GTK_VIS_LIBS.append('boost_signals')
 
     GTK_INCDIRS = get_includes()
@@ -159,7 +160,7 @@ elif os_host == 'linux':
 extra_compile_args=[]
 
 if os_host == 'mac':
-    libraries = ['boost_python','boost_signals']
+    libraries = ['boost_python','boost_numpy','boost_signals']
     extra_compile_args.append('-F/System/Library/Frameworks/OpenGL.framework')
 elif os_host == 'windows':
     libraries=['opengl32', 'glu32', 'user32', 'advapi32', 'gdi32']
