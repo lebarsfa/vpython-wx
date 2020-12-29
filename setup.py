@@ -209,13 +209,12 @@ def main():
                       'visual_common':['*.tga'],
                       },
         ext_modules=[CVISUAL],
-        requires=[
-            'fontTools',
+        install_requires=[
+            'fonttools >= 2.4',
             'numpy',
-            'Polygon',
-            'ttfquery',
-            'wx',
-            #,'wxPython >= 2.9'],
+            'Polygon2 >= 2.0.6',
+            'ttfquery >= 1.0.5'#,
+            #'wxPython >= 2.9',
         ],
         zip_safe=False)
 

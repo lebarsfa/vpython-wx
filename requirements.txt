@@ -1,7 +1,8 @@
-fonttools==2.4
+fonttools>=2.4
 numpy
 # Polygon2-2.0.6/ needs to be an explicit download
 # ./Polygon2-2.0.6
--e ./Polygon2-2.0.6
+#-e ./Polygon2-2.0.6
+Polygon2>=2.0.6
 -e .
-TTFQuery==1.0.5
+TTFQuery>=1.0.5
