@@ -89,7 +89,7 @@ namespace cvisual { namespace python {
   class double_array : public ndarray {
   public:
   	explicit double_array( const boost::python::handle<>& h ) : ndarray(boost::python::numpy::array(boost::python::object(h))) {}
-  	//double_array( const ndarray& a ) : ndarray(a) {}  //< TODO: callers are doing unnecessary copying; somewhat type unsafe
+  	//double_array( const ndarray& a ) : ndarray(boost::python::numpy::array(boost::python::object(a))) {}  //< TODO: callers are doing unnecessary copying; somewhat type unsafe
   };
 
   /**
